@@ -34,10 +34,22 @@ async function create(params: TicketParamsRepository) {
   });
 }
 
+async function getTicketForPayment(tickedId: number) {
+  return prisma.ticket.findUnique({
+    where: {
+      id: tickedId,
+    },
+    include: {
+      Enrollment: true,
+    },
+  });
+}
+
 const ticketRepository = {
   getAllTypes,
   getTicket,
   create,
+  getTicketForPayment,
 };
 
 export default ticketRepository;
