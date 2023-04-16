@@ -37,3 +37,25 @@ export type TicketParams = {
 };
 
 export type TicketParamsRepository = Omit<TicketParams, 'userId'> & { enrollmentId: number };
+
+export type cardData = {
+  issuer: string;
+  number: number;
+  name: string;
+  expirationDate: Date;
+  cvv: number;
+};
+
+export type PaymentBody = {
+  ticketId: number;
+  cardData: cardData;
+};
+
+export type PaymentFinal = PaymentBody & { userId: number };
+
+export type CheckPayment = {
+  ticketId: number;
+  value: number;
+  cardIssuer: string;
+  cardLastDigits: string;
+};
