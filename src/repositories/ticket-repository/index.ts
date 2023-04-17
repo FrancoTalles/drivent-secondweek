@@ -1,4 +1,3 @@
-import { TicketType, Ticket } from '@prisma/client';
 import { prisma } from '@/config';
 import { TicketParamsRepository } from '@/protocols';
 
