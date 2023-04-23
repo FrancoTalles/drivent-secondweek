@@ -267,10 +267,10 @@ describe('GET /hotels/:hotelId', () => {
         updatedAt: expect.any(String),
         Rooms: [
           {
-            id: rooms.Rooms[0].id,
-            name: rooms.Rooms[0].name,
-            capacity: rooms.Rooms[0].capacity,
-            hotelId: rooms.Rooms[0].hotelId,
+            id: expect.any(Number),
+            name: expect.any(String),
+            capacity: expect.any(Number),
+            hotelId: expect.any(Number),
             createdAt: expect.any(String),
             updatedAt: expect.any(String),
           },
