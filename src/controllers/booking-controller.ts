@@ -16,13 +16,31 @@ export async function getBooking(req: AuthenticatedRequest, res: Response, next:
 
 export async function createBooking(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const roomId = req.body.roomId as number;
-  const userId = req.userId;
+  const { userId } = req;
 
   try {
     const booking = await bookingService.createBooking(roomId, userId);
 
     const data = {
       bookingId: booking.id,
+    };
+
+    return res.status(httpStatus.OK).send(data);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function updateBooking(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const roomId = req.body.roomId as number;
+  const { bookingId } = req.params as Record<string, string>;
+  const { userId } = req;
+
+  try {
+    const updateBooking = await bookingService.updateBooking(roomId, Number(bookingId), userId);
+
+    const data = {
+      bookingId: updateBooking.id,
     };
 
     return res.status(httpStatus.OK).send(data);

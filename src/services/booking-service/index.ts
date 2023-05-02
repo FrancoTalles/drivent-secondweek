@@ -29,9 +29,26 @@ async function createBooking(roomId: number, userId: number) {
   return booking;
 }
 
+async function updateBooking(roomId: number, bookingId: number, userId: number) {
+  const booking = await bookingRepository.getBooking(userId);
+
+  if (!booking) throw forbiddenError('User has no booking');
+  if (bookingId !== booking.id) throw forbiddenError('No permission to update');
+
+  const room = await bookingRepository.findRoom(roomId);
+
+  if (!room) throw notFoundError();
+  if (room.Booking.length >= room.capacity) throw forbiddenError('No vacancies');
+
+  const updateBooking = await bookingRepository.update(roomId, bookingId);
+
+  return updateBooking;
+}
+
 const bookingService = {
   getBooking,
   createBooking,
+  updateBooking,
 };
 
 export default bookingService;
